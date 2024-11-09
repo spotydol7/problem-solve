@@ -42,3 +42,9 @@
 |2493. 탑|[링크](./%EB%B0%B1%EC%A4%80/Gold/2493.%E2%80%85%ED%83%91/README.md)|
 |5430. AC|[링크](./%EB%B0%B1%EC%A4%80/Gold/5430.%E2%80%85AC/AC.cc)|
 |9019. DSLR|[링크](./%EB%B0%B1%EC%A4%80/Gold/9019.%E2%80%85DSLR/DSLR.cc)|
+### 🚀 Silver
+| 문제번호 | 링크 |
+| ----- | ----- |
+|1406. 에디터|[링크](./%EB%B0%B1%EC%A4%80/Silver/1406.%E2%80%85%EC%97%90%EB%94%94%ED%84%B0/README.md)|
+|1697. 숨바꼭질|[링크](./%EB%B0%B1%EC%A4%80/Silver/1697.%E2%80%85%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%88/%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%88.cc)|
+|2667. 단지번호붙이기|[링크](./%EB%B0%B1%EC%A4%80/Silver/2667.%E2%80%85%EB%8B%A8%EC%A7%80%EB%B2%88%ED%98%B8%EB%B6%99%EC%9D%B4%EA%B8%B0/README.md)|
