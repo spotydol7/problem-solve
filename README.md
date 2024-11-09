@@ -1,2 +1,13 @@
-# problem-solve
-This is an auto push repository for Baekjoon Online Judge created with [BaekjoonHub](https://github.com/BaekjoonHub/BaekjoonHub).
+#
+# 백준, 프로그래머스 문제 풀이 목록
+### 🚀 SWEA
+| 문제번호 | 링크 |
+| ----- | ----- |
+### 🚀 D3
+| 문제번호 | 링크 |
+| ----- | ----- |
+|5215. 햄버거 다이어트|[링크](./SWEA/D3/5215.%E2%80%85%ED%96%84%EB%B2%84%EA%B1%B0%E2%80%85%EB%8B%A4%EC%9D%B4%EC%96%B4%ED%8A%B8/README.md)|
+### 🚀 D4
+| 문제번호 | 링크 |
+| ----- | ----- |
+|2819. 격자판의 숫자 이어 붙이기|[링크](./SWEA/D4/2819.%E2%80%85%EA%B2%A9%EC%9E%90%ED%8C%90%EC%9D%98%E2%80%85%EC%88%AB%EC%9E%90%E2%80%85%EC%9D%B4%EC%96%B4%E2%80%85%EB%B6%99%EC%9D%B4%EA%B8%B0/%EA%B2%A9%EC%9E%90%ED%8C%90%EC%9D%98%E2%80%85%EC%88%AB%EC%9E%90%E2%80%85%EC%9D%B4%EC%96%B4%E2%80%85%EB%B6%99%EC%9D%B4%EA%B8%B0.cpp)|
