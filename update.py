@@ -4,7 +4,7 @@ import os
 from urllib import parse
 
 HEADER="""#
-# PS 문제풀이 기록
+# 🚀 PS 문제풀이 기록
 """
 
 def main():
