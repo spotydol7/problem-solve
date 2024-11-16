@@ -1,56 +1,57 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include<iostream>
 
 using namespace std;
+
+int arr[101][101];
 
 int main(int argc, char** argv)
 {
 	int test_case;
 	int T = 10;
-	int n, temp;
-    
+
 	for(test_case = 1; test_case <= T; ++test_case)
 	{
-        vector<vector<int>> plane;
-        int rowsum = 0;
-        int rowmax = 0;
-        int colsum = 0;
-        int colmax = 0;
-        int diagsum1 = 0;
-        int diagsum2 = 0;
-		cin >> n;
-        for(int i = 0; i < 100; i++) {
-            vector<int> row;
+        int t, temp;
+        cin >> t;
+        
+        for (int i = 0; i < 100; i++) {
         	for (int j = 0; j < 100; j++) {
-            	cin >> temp;
-                row.push_back(temp);
-                rowsum += temp;
+            	cin >> arr[i][j];
             }
-            if (rowsum > rowmax) rowmax = rowsum;
-            rowsum = 0;
-            plane.push_back(row);
         }
         
-        for(int i = 0; i < 100; i++) {
-        	for(int j = 0; j < 100; j++) {
-            	colsum += plane[j][i];
+        int max = 0;
+        int sum = 0;
+        for (int i = 0; i < 100; i++) {
+        	sum = 0;
+            for (int j = 0; j < 100; j++) {
+            	sum += arr[i][j];
             }
-            if (colsum > colmax) colmax = colsum;
-            colsum = 0;
+            if (sum > max) max = sum;
         }
         
-        for(int i = 0; i < 100; i++) {
-        	diagsum1 += plane[i][i];
+        sum = 0;
+        for (int i = 0; i < 100; i++) {
+        	sum = 0;
+            for (int j = 0; j < 100; j++) {
+            	sum += arr[j][i];
+            }
+            if (sum > max) max = sum;
         }
         
-        for (int i = 99; i >= 0; i--) {
-        	diagsum2 += plane[i][i];
+        sum = 0;
+        for (int i = 0; i < 100; i++) {
+        	sum += arr[i][i];
         }
-        int max1 = rowmax > colmax ? rowmax : colmax;
-        int max2 = diagsum1 > diagsum2 ? diagsum1 : diagsum2;
-        int ans = max(max1,max2);
-        cout << "#" << test_case << ' ' << ans << endl;
+        if (sum > max) max = sum;
+        
+        sum = 0;
+        for (int i = 0; i < 100; i++) {
+        	sum += arr[i][99 - i];
+        }
+        if (sum > max) max = sum;
+        
+        cout << '#' << test_case << ' ' << max << endl;
 	}
 	return 0;
 }
