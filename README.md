@@ -53,6 +53,7 @@
 ### 🚀 Bronze
 | 문제번호 | 링크 |
 | ----- | ----- |
+|10250. ACM 호텔|[링크](./%EB%B0%B1%EC%A4%80/Bronze/10250.%E2%80%85ACM%E2%80%85%ED%98%B8%ED%85%94/README.md)|
 |10807. 개수 세기|[링크](./%EB%B0%B1%EC%A4%80/Bronze/10807.%E2%80%85%EA%B0%9C%EC%88%98%E2%80%85%EC%84%B8%EA%B8%B0/%EA%B0%9C%EC%88%98%E2%80%85%EC%84%B8%EA%B8%B0.cc)|
 |11328. Strfry|[링크](./%EB%B0%B1%EC%A4%80/Bronze/11328.%E2%80%85Strfry/Strfry.cc)|
 |1919. 애너그램 만들기|[링크](./%EB%B0%B1%EC%A4%80/Bronze/1919.%E2%80%85%EC%95%A0%EB%84%88%EA%B7%B8%EB%9E%A8%E2%80%85%EB%A7%8C%EB%93%A4%EA%B8%B0/%EC%95%A0%EB%84%88%EA%B7%B8%EB%9E%A8%E2%80%85%EB%A7%8C%EB%93%A4%EA%B8%B0.cc)|
