@@ -32,18 +32,16 @@ void kill() {
 
 	// 3명의 궁수에 대해 각각 공격할 목표를 선정
 	for (int k = 0; k < 3; k++) {
-		int archerCol = archer[k];  // 아처의 열 위치 (아처는 (n, archerCol)에 위치)
+		int archerCol = archer[k];  // 궁수의 열 위치
 		int target_r = -1, target_c = -1;
 		int min_distance = d + 1;     // d보다 큰 초기값 설정
 
-		// 모든 적(행 0~n-1, 열 0~m-1)을 탐색
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < m; j++) {
 				if (copy_arr[i][j] == 1) { // 적이 있는 경우
-					// 아처 (n, archerCol)와 적 (i, j) 사이의 Manhattan 거리
-					int distance = (n - i) + abs(archerCol - j);
+					int distance = getDist(n, archerCol, i, j);
 					if (distance <= d) { // 공격 가능 범위 내라면
-						// 더 짧은 거리를 발견하거나, 거리가 같을 경우 왼쪽에 있는 적 선택
+						// 더 짧은 거리를 발견하거나 거리가 같을 경우 왼쪽에 있는 적 선택
 						if (distance < min_distance || (distance == min_distance && j < target_c)) {
 							min_distance = distance;
 							target_r = i;
@@ -59,7 +57,7 @@ void kill() {
 		}
 	}
 
-	// 동시에 공격: set에 저장된 각 타겟에 대해 적 제거
+	// 동시 공격 구현 (set으로 중복제거)
 	for (auto &target : targets) {
 		if (copy_arr[target.first][target.second] == 1) {  // 이미 제거되지 않았다면
 			copy_arr[target.first][target.second] = 0;
