@@ -7,7 +7,6 @@ vector<int> popular;
 vector<int> adjacent[11];
 int visited[11];
 int picked[11];
-int arr[11];
 
 int calc(vector<int> &v1, vector<int> &v2) {
 	int sum1 = 0;
@@ -34,7 +33,7 @@ bool check(int x, vector<int> &v) {
 	q.push(x);
 	visited[x] = 1;
 
-	vector<bool> inRegion(n + 1, false);
+	vector<bool> inRegion(n + 1, false); // 같은 지역구 내에서만 bfs 돌리려고 bool 벡터 사용
 	for (int i = 0; i < v.size(); i++) {
 		inRegion[v[i]] = true;
 	}
@@ -58,7 +57,7 @@ bool check(int x, vector<int> &v) {
 	return true;
 }
 
-void pick(int idx, int level, int max_level) {
+void pick(int idx, int level, int max_level) { // params: idx - dfs 시작 노드, level - dfs 깊이, max_level - dfs 최대 깊이
 	if (level == max_level) {
 		vector<int> region1;
 		vector<int> region2;
@@ -74,7 +73,7 @@ void pick(int idx, int level, int max_level) {
 		}
 	}
 	else {
-		for (int i = idx; i <= n; i++) {
+		for (int i = idx; i <= n; i++) { // 지역구 1에 넣을 거 고르기
 			if (!picked[i]) {
 				picked[i] = 1;
 				pick(idx + 1, level + 1, max_level);
@@ -101,12 +100,12 @@ int main() {
 		cin >> k;
 		for (int j = 0; j < k; j++) {
 			cin >> temp;
-			adjacent[i].push_back(temp);
+			adjacent[i].push_back(temp); // 인접행렬
 			adjacent[temp].push_back(i);
 		}
 	}
 
-	for (int i = 1; i < n; i++) {
+	for (int i = 1; i < n; i++) { // 지역구1 크기 1부터 n-1까지
 		memset(picked, 0, sizeof(picked));
 		pick(1, 0, i);
 	}
