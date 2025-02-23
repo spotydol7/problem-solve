@@ -22,25 +22,26 @@ int main() {
     cin >> N >> M;
 
     int lim = 2;
-    while(lim <= N) lim = (lim << 1);
+    while(lim <= N) // N보다 큰 2의 제곱수 중에 제일 작은 수 찾기
+        lim = (lim << 1);
 
     queue<int> q;
     for(int i = 0; i < M; i++) {
         int temp; 
         cin >> temp;
         visited[temp] = 1;
-        q.push(temp);
+        q.push(temp); // 시작점이 여러 개인 bfs
     }
 
     int ans = 0;
     while(!q.empty()) {
         ans++;
-        int size = q.size();
+        int size = q.size(); // 그 level에서 갈 수 있는 노드 수?
         for(int i = 0; i < size; i++) {
             int x = q.front(); 
             q.pop();
             for(int j = 1; j < lim; (j <<= 1)) {
-                int next = x ^ j;
+                int next = x ^ j; // XOR 연산
                 if(next > N) continue;
                 if(visited[next]) continue;
                 visited[next] = true;
