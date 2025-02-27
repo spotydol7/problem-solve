@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int arr[1000001];
-int lis[1000001];
+int lis[1000001]; // LIS 저장할 배열
 vector<int> v;
 
 int binSearch(int st, int en, int target) {
@@ -30,15 +29,15 @@ int main() {
 		v.push_back(temp);
 	}
 
-	lis[0] = v[0];
-	int last = 0;
+	lis[0] = v[0]; // 일단 첫 원소 넣기
+	int last = 0; // LIS 배열의 마지막 idx
 
 	for (int i = 0; i < n; i++) {
-		if (v[i] > lis[last]) {
-			lis[++last] = v[i];
+		if (v[i] > lis[last]) { // 벡터의 다음 원소가 LIS의 마지막 보다 크면
+			lis[++last] = v[i]; // LIS의 마지막이 가장 큰 원소이므로 그냥 그 뒤에 추가
 		}
-		else {
-			int idx = binSearch(0, last, v[i]);
+		else { // 벡터의 다음 원소가 LIS 마지막보다 작으면
+			int idx = binSearch(0, last, v[i]); // LIS배열에서 이분탐색해서 v[i] 들어갈 자리 찾고 넣기
 			lis[idx] = v[i];
 		}
 	}
@@ -47,13 +46,3 @@ int main() {
 
 	return 0;
 }
-
-/*
-
-배열의 각 요소를 순회한다. 이때, 배열의 각 요소를 lis 배열에 담는데, lis 배열에는 작은 순서대로만 들어가야 한다.
-
-따라서 lis 배열의 가장 마지막 요소와 배열의 요소를 비교하면 된다.
-
-만약 lis 배열의 최댓값보다 크다면 해당 요소를 lis 배열의 마지막에 추가시켜주면 된다.
-
-*/
