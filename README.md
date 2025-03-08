@@ -66,6 +66,7 @@
 | 문제번호 | 링크 |
 | ----- | ----- |
 |10250. ACM 호텔|[링크](./%EB%B0%B1%EC%A4%80/Bronze/10250.%E2%80%85ACM%E2%80%85%ED%98%B8%ED%85%94/README.md)|
+|1075. 나누기|[링크](./%EB%B0%B1%EC%A4%80/Bronze/1075.%E2%80%85%EB%82%98%EB%88%84%EA%B8%B0/README.md)|
 |10807. 개수 세기|[링크](./%EB%B0%B1%EC%A4%80/Bronze/10807.%E2%80%85%EA%B0%9C%EC%88%98%E2%80%85%EC%84%B8%EA%B8%B0/%EA%B0%9C%EC%88%98%E2%80%85%EC%84%B8%EA%B8%B0.cc)|
 |11328. Strfry|[링크](./%EB%B0%B1%EC%A4%80/Bronze/11328.%E2%80%85Strfry/README.md)|
 |11382. 꼬마 정민|[링크](./%EB%B0%B1%EC%A4%80/Bronze/11382.%E2%80%85%EA%BC%AC%EB%A7%88%E2%80%85%EC%A0%95%EB%AF%BC/README.md)|
