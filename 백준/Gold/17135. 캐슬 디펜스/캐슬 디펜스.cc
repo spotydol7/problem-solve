@@ -77,7 +77,7 @@ void putArcher(int arch) {
 
 		isEnded = false;
 		while (!isEnded) {
-			memset(killed, 0, sizeof(killed));
+			
 			kill();
 			
 			moveEnemy();
