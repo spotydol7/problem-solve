@@ -1,143 +1,98 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
 using namespace std;
 
-void kill();
-void putArcher(int arch);
-void moveEnemy();
-int getDist(int a, int b, int c, int d);
-
 int n, m, d;
-int killCnt, ans;
-bool isEnded = false;
-int arr[16][16];
-int copy_arr[16][16];
-int killed[16][16];
-int visited[16][16];
-int archer[3];
-int dr[3] = { 0, -1, 0 };
-int dc[3] = { -1, 0, 1 };
+int board[16][16];   // 원본 보드
+int temp[16][16];    // 시뮬레이션 시 사용할 보드 복사본
 
-/*
-4 4 3
-0 1 1 0
-0 0 1 1
-1 0 1 0
-1 1 1 0
-ans : 8 but prints 9
-*/
+// 시뮬레이션: archers 배열에 3명의 궁수(0-indexed 열 번호)가 들어 있음.
+// 매 턴마다 각 궁수가 공격 대상을 선택한 후, 동시에 공격하고, 적을 아래로 이동합니다.
+int simulate(int archers[3]) {
+    int killCount = 0;
+    // 원본 board를 temp에 복사
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++)
+            temp[i][j] = board[i][j];
 
-void kill() {
-	// 중복된 좌표가 저장되지 않도록 set 사용 (pair의 첫번째는 행, 두번째는 열)
-	set<pair<int, int>> targets;
+    // 최대 n번의 턴 (모든 적이 성 앞으로 내려오거나 제거됨)
+    for (int turn = 0; turn < n; turn++) {
+        bool hit[16][16] = { false };  // 이번 턴에 공격받을 적 위치를 기록
 
-	// 3명의 궁수에 대해 각각 공격할 목표를 선정
-	for (int k = 0; k < 3; k++) {
-		int archerCol = archer[k];  // 궁수의 열 위치
-		int target_r = -1, target_c = -1;
-		int min_distance = d + 1;     // d보다 큰 초기값 설정
+        // 각 궁수별로 공격 대상 선정
+        for (int a = 0; a < 3; a++) {
+            int bestDist = d + 1;
+            int targetR = -1, targetC = -1;
+            // 모든 적에 대해 검사 (전체 보드 순회)
+            for (int i = n - 1; i >= 0; i--) {
+                for (int j = 0; j < m; j++) {
+                    if (temp[i][j] == 1) {
+                        int dist = (n - i) + abs(archers[a] - j);
+                        if (dist <= d) {
+                            // 거리가 짧거나, 거리가 같으면 더 왼쪽이면 갱신
+                            if (dist < bestDist || (dist == bestDist && j < targetC)) {
+                                bestDist = dist;
+                                targetR = i;
+                                targetC = j;
+                            }
+                        }
+                    }
+                }
+            }
+            // 유효한 목표가 있다면 이번 턴 공격 대상에 추가
+            if (targetR != -1)
+                hit[targetR][targetC] = true;
+        }
 
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
-				if (copy_arr[i][j] == 1) { // 적이 있는 경우
-					int distance = getDist(n, archerCol, i, j);
-					if (distance <= d) { // 공격 가능 범위 내라면
-						// 더 짧은 거리를 발견하거나 거리가 같을 경우 왼쪽에 있는 적 선택
-						if (distance < min_distance || (distance == min_distance && j < target_c)) {
-							min_distance = distance;
-							target_r = i;
-							target_c = j;
-						}
-					}
-				}
-			}
-		}
-		// 해당 궁수가 공격할 목표가 존재하면 set에 추가
-		if (target_r != -1) {
-			targets.insert({ target_r, target_c });
-		}
-	}
+        // 공격 대상에 있는 적을 제거
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (hit[i][j] && temp[i][j] == 1) {
+                    killCount++;
+                    temp[i][j] = 0;
+                }
+            }
+        }
 
-	// 동시 공격 구현 (set으로 중복제거)
-	for (auto &target : targets) {
-		if (copy_arr[target.first][target.second] == 1) {  // 이미 제거되지 않았다면
-			copy_arr[target.first][target.second] = 0;
-			killCnt++;
-		}
-	}
+        // 적 이동: 모든 적이 한 행 아래로 이동, 가장 아래 행은 성에 도달하므로 사라짐
+        for (int i = n - 1; i > 0; i--) {
+            for (int j = 0; j < m; j++) {
+                temp[i][j] = temp[i - 1][j];
+            }
+        }
+        // 첫 행은 빈 칸으로 채움
+        for (int j = 0; j < m; j++) {
+            temp[0][j] = 0;
+        }
+    }
+    return killCount;
 }
 
-void putArcher(int arch) {
-	if (arch == 3) {
-		killCnt = 0;
-		for (int i = 0; i <= n; i++) {
-			for (int j = 0; j < m; j++) {
-				copy_arr[i][j] = arr[i][j];
-			}
-		}
-
-		isEnded = false;
-		while (!isEnded) {
-			
-			kill();
-			
-			moveEnemy();
-			
-		}
-		ans = max(ans, killCnt);
-	}
-	else {
-		for (int i = 0; i < m; i++) {
-			if (copy_arr[n][i] == 0) {
-				copy_arr[n][i] = 2; // 궁수 : 2로 표시
-				archer[arch] = i;
-				putArcher(arch + 1);
-				copy_arr[n][i] = 0;
-			}
-		}
-	}
-}
-
-void moveEnemy() {
-	for (int i = n - 1; i >= 0; i--) {
-		for (int j = 0; j < m; j++) {
-			if (copy_arr[i][j] == 1) {
-				copy_arr[i][j] = 0;
-				if (i + 1 < n) copy_arr[i + 1][j] = 1;
-			}
-		}
-	}
-
-	int cnt = 0;
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			cnt += copy_arr[i][j];
-		}
-	}
-	if (cnt > 0) isEnded = false;
-	else {
-		isEnded = true;
-	}
-}
-
-int getDist(int a, int b, int c, int d) {
-	return abs(a - c) + abs(b - d);
-}
-
-int main() {
-	ios_base::sync_with_stdio(0);
-	cin.tie(0);
-	cout.tie(0);
-
-	cin >> n >> m >> d;
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			cin >> arr[i][j];
-		}
-	}
-
-	putArcher(0);
-
-	cout << ans;
-
-	return 0;
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    cin >> n >> m >> d;
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < m; j++){
+            cin >> board[i][j];
+        }
+    }
+    
+    int best = 0;
+    int archers[3];
+    // m의 열 중에서 3개의 궁수 위치를 3중 for문으로 선택 (조합: mC3)
+    for (int i = 0; i < m; i++) {
+        for (int j = i + 1; j < m; j++) {
+            for (int k = j + 1; k < m; k++) {
+                archers[0] = i;
+                archers[1] = j;
+                archers[2] = k;
+                best = max(best, simulate(archers));
+            }
+        }
+    }
+    cout << best << "\n";
+    return 0;
 }
