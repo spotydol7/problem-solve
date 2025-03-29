@@ -190,6 +190,7 @@
 |9019. DSLR|[링크](./%EB%B0%B1%EC%A4%80/Gold/9019.%E2%80%85DSLR/README.md)|
 |9084. 동전|[링크](./%EB%B0%B1%EC%A4%80/Gold/9084.%E2%80%85%EB%8F%99%EC%A0%84/README.md)|
 |9251. LCS|[링크](./%EB%B0%B1%EC%A4%80/Gold/9251.%E2%80%85LCS/README.md)|
+|9252. LCS 2|[링크](./%EB%B0%B1%EC%A4%80/Gold/9252.%E2%80%85LCS%E2%80%852/README.md)|
 |9370. 미확인 도착지|[링크](./%EB%B0%B1%EC%A4%80/Gold/9370.%E2%80%85%EB%AF%B8%ED%99%95%EC%9D%B8%E2%80%85%EB%8F%84%EC%B0%A9%EC%A7%80/README.md)|
 |9663. N－Queen|[링크](./%EB%B0%B1%EC%A4%80/Gold/9663.%E2%80%85N%EF%BC%8DQueen/README.md)|
 ### 🚀 Platinum
