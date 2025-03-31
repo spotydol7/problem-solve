@@ -81,6 +81,7 @@
 |28702. FizzBuzz|[링크](./%EB%B0%B1%EC%A4%80/Bronze/28702.%E2%80%85FizzBuzz/README.md)|
 |30802. 웰컴 키트|[링크](./%EB%B0%B1%EC%A4%80/Bronze/30802.%E2%80%85%EC%9B%B0%EC%BB%B4%E2%80%85%ED%82%A4%ED%8A%B8/README.md)|
 |31403. $A ＋ B － C$|[링크](./%EB%B0%B1%EC%A4%80/Bronze/31403.%E2%80%85%24A%E2%80%85%EF%BC%8B%E2%80%85B%E2%80%85%EF%BC%8D%E2%80%85C%24/README.md)|
+|33166. 鉄道旅行 3 （Railway Trip 3）|[링크](./%EB%B0%B1%EC%A4%80/Bronze/33166.%E2%80%85%E9%89%84%E9%81%93%E6%97%85%E8%A1%8C%E2%80%853%E2%80%85%EF%BC%88Railway%E2%80%85Trip%E2%80%853%EF%BC%89/README.md)|
 ### 🚀 Gold
 | 문제번호 | 링크 |
 | ----- | ----- |
