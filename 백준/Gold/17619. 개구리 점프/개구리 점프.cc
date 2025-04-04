@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 int parent[100001];
@@ -12,14 +12,12 @@ void unionParent(int a, int b) {
 	a = getParent(a);
 	b = getParent(b);
 	if (a == b) return;
-	parent[a] = b;
+	if (a < b) parent[b] = a;
+	else parent[a] = b;
 }
 
 bool isUnion(int a, int b) {
-	a = getParent(a);
-	b = getParent(b);
-	if (a == b) return true;
-	return false;
+	return getParent(a) == getParent(b);
 }
 
 int main() {
@@ -39,18 +37,28 @@ int main() {
 
 	sort(logs.begin(), logs.end());
 
-	for (int i = 0; i < n - 1; i++) {
-		if (logs[i].second.first >= logs[i + 1].first) {
-			unionParent(logs[i].second.second, logs[i + 1].second.second);
+	int maxX = logs[0].second.first;
+	int prevIdx = logs[0].second.second;
+
+	for (int i = 1; i < n; i++) {
+		int x1 = logs[i].first;
+		int x2 = logs[i].second.first;
+		int idx = logs[i].second.second;
+
+		if (x1 <= maxX) {
+			unionParent(prevIdx, idx);
+			maxX = max(maxX, x2);
+		}
+		else {
+			prevIdx = idx;
+			maxX = x2;
 		}
 	}
 
-	for (int i = 0; i < q; i++) {
+	while (q--) {
 		int a, b;
 		cin >> a >> b;
-		if (isUnion(a, b)) cout << 1 << '\n';
-		else cout << 0 << '\n';
+		cout << isUnion(a, b) << '\n';
 	}
-
 	return 0;
 }
