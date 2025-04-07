@@ -35,7 +35,7 @@ int main() {
 	for (int i = 0; i < gis.size(); i++) {
 		if (findParent(gis[i]) == 0) break;
 		else {
-			parent[findParent(gis[i])] = findParent(findParent(gis[i]) - 1);
+			parent[findParent(gis[i])] = findParent(findParent(gis[i]) - 1); // 게이트의 부모를 하나 낮은 게이트의 부모로 연결
 			ans++;
 		}
 	}
