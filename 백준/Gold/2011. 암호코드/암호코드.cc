@@ -7,10 +7,8 @@ int main() {
 	string str;
 	cin >> str;
 	
-	long long ans = 0;
-	
 	if (str[0] == '0') {
-		cout << ans;
+		cout << 0;
 		return 0;
 	}
 
