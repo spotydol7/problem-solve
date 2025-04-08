@@ -84,6 +84,7 @@
 |31403. $A ＋ B － C$|[링크](./%EB%B0%B1%EC%A4%80/Bronze/31403.%E2%80%85%24A%E2%80%85%EF%BC%8B%E2%80%85B%E2%80%85%EF%BC%8D%E2%80%85C%24/README.md)|
 |32498. Call for Problems|[링크](./%EB%B0%B1%EC%A4%80/Bronze/32498.%E2%80%85Call%E2%80%85for%E2%80%85Problems/README.md)|
 |33166. 鉄道旅行 3 （Railway Trip 3）|[링크](./%EB%B0%B1%EC%A4%80/Bronze/33166.%E2%80%85%E9%89%84%E9%81%93%E6%97%85%E8%A1%8C%E2%80%853%E2%80%85%EF%BC%88Railway%E2%80%85Trip%E2%80%853%EF%BC%89/README.md)|
+|7567. 그릇|[링크](./%EB%B0%B1%EC%A4%80/Bronze/7567.%E2%80%85%EA%B7%B8%EB%A6%87/README.md)|
 ### 🚀 Gold
 | 문제번호 | 링크 |
 | ----- | ----- |
