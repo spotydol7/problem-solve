@@ -82,6 +82,7 @@
 |25304. 영수증|[링크](./%EB%B0%B1%EC%A4%80/Bronze/25304.%E2%80%85%EC%98%81%EC%88%98%EC%A6%9D/README.md)|
 |25314. 코딩은 체육과목 입니다|[링크](./%EB%B0%B1%EC%A4%80/Bronze/25314.%E2%80%85%EC%BD%94%EB%94%A9%EC%9D%80%E2%80%85%EC%B2%B4%EC%9C%A1%EA%B3%BC%EB%AA%A9%E2%80%85%EC%9E%85%EB%8B%88%EB%8B%A4/README.md)|
 |28702. FizzBuzz|[링크](./%EB%B0%B1%EC%A4%80/Bronze/28702.%E2%80%85FizzBuzz/README.md)|
+|2975. Transactions|[링크](./%EB%B0%B1%EC%A4%80/Bronze/2975.%E2%80%85Transactions/README.md)|
 |30802. 웰컴 키트|[링크](./%EB%B0%B1%EC%A4%80/Bronze/30802.%E2%80%85%EC%9B%B0%EC%BB%B4%E2%80%85%ED%82%A4%ED%8A%B8/README.md)|
 |31403. $A ＋ B － C$|[링크](./%EB%B0%B1%EC%A4%80/Bronze/31403.%E2%80%85%24A%E2%80%85%EF%BC%8B%E2%80%85B%E2%80%85%EF%BC%8D%E2%80%85C%24/README.md)|
 |32498. Call for Problems|[링크](./%EB%B0%B1%EC%A4%80/Bronze/32498.%E2%80%85Call%E2%80%85for%E2%80%85Problems/README.md)|
