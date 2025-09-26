@@ -1,7 +1,7 @@
 -- 코드를 입력하세요
 SELECT f.FLAVOR
 from first_half f
-inner join (select flavor, sum(total_order) as 'TOTAL_ORDER'
+join (select flavor, sum(total_order) as 'TOTAL_ORDER'
            from july
            group by flavor) j
 on f.flavor = j.flavor
