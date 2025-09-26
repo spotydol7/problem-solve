@@ -1,7 +1,12 @@
-SET @HOUR = -1;
-SELECT (@HOUR := @HOUR +1) AS HOUR,
-    (SELECT COUNT(HOUR(DATETIME)) 
-    FROM ANIMAL_OUTS 
-    WHERE HOUR(DATETIME)=@HOUR) AS COUNT 
-    FROM ANIMAL_OUTS
-WHERE @HOUR < 23;
+with recursive temp as (
+    select 0 as HOUR
+    union all
+    select HOUR + 1 from temp where HOUR < 23
+)
+
+select temp.hour, count(o.animal_id) as COUNT
+from temp
+left join animal_outs o
+on temp.HOUR = HOUR(o.datetime)
+group by temp.HOUR
+order by temp.HOUR
