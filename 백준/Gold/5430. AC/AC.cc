@@ -1,94 +1,71 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-int D(deque<int> &v, int reversed) {
-	if (!v.empty() && !reversed) {
-		v.pop_front();
-		return 1;
-	}
-	else if (!v.empty() && reversed) {
-		v.pop_back();
-		return 1;
-	}
-	else if (v.empty()) {
-		return -1;
-	}
-}
+int T;
 
 int main() {
-	int t, n;
-	string command, arr;
-	cin >> t;
-	for (int i = 0; i < t; i++) {
-		deque<int> v;
-		int temp = 0;
-		int check = 0;
-		int reversed = 0;
-		cin >> command;
-		cin >> n;
-		cin >> arr;
-		for (int i = 0; i < arr.length() - 1; i++) {
-			if (arr[i] >= '0' && arr[i] <= '9') {
-				temp += arr[i] - '0';
-			}
-			if (arr[i + 1] >= '0' && arr[i + 1] <= '9') {
-				temp *= 10;
-			}
-			else if (n != 0) {
-				v.push_back(temp);
-				temp = 0;
-			}
-		}
+    cin >> T;
+    for (int t = 0; t < T; t++) {
+        int n;
+        string p, arr;
+        cin >> p;
+        cin >> n;
+        cin >> arr;
+        deque<int> dq;
+        int num = 0;
+        bool reading = false;
+        for (int i = 1; i < (int)arr.length() - 1; i++) { 
+            if (isdigit(arr[i])) {
+                reading = true;
+                num = num * 10 + (arr[i] - '0');
+            } else {
+                if (reading) {
+                    dq.push_back(num);
+                    num = 0;
+                    reading = false;
+                }
+            }
+        }
+        if (reading) dq.push_back(num);
 
-		for (int i = 0; i < command.length(); i++) {
-			if (command[i] == 'R') {
-				//reverse(v.begin(), v.end());
-				if (reversed) reversed = 0;
-				else reversed = 1;
-			}
-			if (command[i] == 'D') {
-				if (v.empty()) {
-					check = -1;
-					break;
-				}
-				if (n == 0) {
-					check = -1;
-					break;
-				}
-				check = D(v, reversed);
-				if (check == -1) break;
-			}
+        bool rev = false;
+        bool ok = true;
 
-		}
+        for (char c : p) {
+            if (c == 'R') {
+                rev = !rev;
+            } else { // D
+                if (dq.empty()) {
+                    ok = false;
+                    break;
+                }
+                if (!rev) dq.pop_front();
+                else dq.pop_back();
+            }
+        }
 
-		if (check == -1) {
-			cout << "error" << '\n';
-		}
-		else if (!reversed) {
-			cout << '[';
-			for (int i = 0; i < v.size(); i++) {
-				if (i == 0) {
-					cout << v[i];
-				}
-				else {
-					cout << ',' << v[i];
-				}
-			}
-			cout << ']' << '\n';
-		}
-		else {
-			cout << '[';
-			for (int i = v.size() - 1; i >= 0; i--) {
-				if (i == v.size() - 1) {
-					cout << v[i];
-				}
-				else {
-					cout << ',' << v[i];
-				}
-			}
-			cout << ']' << '\n';
-		}
-	}
+        if (!ok) {
+            cout << "error\n";
+            continue;
+        }
 
-	return 0;
+        cout << "[";
+        if (!dq.empty()) {
+            if (!rev) {
+                for (int i = 0; i < dq.size(); i++) {
+                    if (i) cout << ",";
+                    cout << dq[i];
+                }
+            } else {
+                for (int i = dq.size() - 1; i >= 0; i--) {
+                    if (i != dq.size() - 1) cout << ",";
+                    cout << dq[i];
+                }
+            }
+        }
+        cout << "]\n";
+        
+    }
+
+    return 0;
 }
