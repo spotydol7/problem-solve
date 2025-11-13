@@ -1,61 +1,62 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-int m, n, h, cnt = 0;
-int tomato[101][101][101];
-int d[101][101][101];
-int dx[6] = {1, 0, -1, 0, 0, 0};
-int dy[6] = {0, 1, 0, -1, 0, 0};
-int dz[6] = {0, 0, 0, 0, 1, -1};
-queue<pair<pair<int, int>, int>> Q;
+int board[101][101][101];
+int depth[101][101][101];
+int dh[6] = {0, 0, 0, 0, 1, -1};
+int dr[6] = {1, -1, 0, 0, 0, 0};
+int dc[6] = {0, 0, 1, -1, 0, 0};
 
 int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-
+    int m, n, h;
     cin >> m >> n >> h;
 
+    queue<tuple<int, int, int, int>> q;
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < n; j++) {
             for (int k = 0; k < m; k++) {
-                cin >> tomato[i][j][k];
-                if (tomato[i][j][k] == 1) 
-                    Q.push({{i, j}, k});
-                if (tomato[i][j][k] == 0) 
-                    d[i][j][k] = -1;
+                cin >> board[i][j][k];
+                if (board[i][j][k] == 1) q.push({i, j, k, 0});
+                if (board[i][j][k] == 0) depth[i][j][k] = -1;
             }
         }
     }
 
-    while (!Q.empty()) {
-        auto cur = Q.front();
-        Q.pop();
+    while(!q.empty()) {
+        int curH = get<0>(q.front());
+        int curR = get<1>(q.front());
+        int curC = get<2>(q.front());
+        int curDepth = get<3>(q.front());
+        q.pop();
+        
         for (int i = 0; i < 6; i++) {
-            int nx = cur.first.first + dx[i];
-            int ny = cur.first.second + dy[i];
-            int nz = cur.second + dz[i];
+            int nh = curH + dh[i];
+            int nr = curR + dr[i];
+            int nc = curC + dc[i];
 
-            if (nx < 0 || nx >= h || ny < 0 || ny >= n || nz < 0 || nz >= m) continue;
-            if (d[nx][ny][nz] >= 0) continue;
-            d[nx][ny][nz] = d[cur.first.first][cur.first.second][cur.second] + 1;
-            Q.push({{nx, ny}, nz});
+            if (nh < 0 || nh >= h || nr < 0 || nr >= n || nc < 0 || nc >= m) continue;
+            if (depth[nh][nr][nc] >= 0) continue;
+            if (board[nh][nr][nc] == -1) continue;
+            
+            q.push({nh, nr, nc, curDepth + 1});
+            depth[nh][nr][nc] = curDepth + 1;
         }
     }
 
-    int ans = 0;
+    int max = -1;
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < n; j++) {
             for (int k = 0; k < m; k++) {
-                if (d[i][j][k] == -1) {
+                if (depth[i][j][k] == -1) {
                     cout << -1;
                     return 0;
                 }
-                ans = max(ans, d[i][j][k]);
+                max = depth[i][j][k] > max ? depth[i][j][k] : max;
             }
         }
     }
 
-    cout << ans << '\n';
+    cout << max;
 
     return 0;
 }
