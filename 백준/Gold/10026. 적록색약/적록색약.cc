@@ -1,88 +1,80 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int R = 1;
+const int G = 2;
+const int B = 3;
+
 int n;
-int cnt_normal = 0;
-int cnt_blind = 0;
+int board[101][101];
+int blind[101][101];
+bool visited[101][101];
+int dr[4] = {1, -1, 0, 0};
+int dc[4] = {0, 0, 1, -1};
+int sum = 0;
 
-char normal[102][102];
-char blind[102][102];
-bool visited[102][102];
+void dfs(int r, int c, int arr[][101]) {
+    visited[r][c] = true;
 
-int dx[] = { 1, -1, 0, 0 };
-int dy[] = { 0, 0, 1, -1 };
+    for (int i = 0; i < 4; i++) {
+        int nr = r + dr[i];
+        int nc = c + dc[i];
 
+        if (nr < 0 || nr >= n || nc < 0 || nc >= n) continue;
+        if (visited[nr][nc]) continue;
+        if (arr[r][c] != arr[nr][nc]) continue;
 
-void dfs_normal(int curX, int curY) {
-	if (visited[curX][curY]) return;
-
-	visited[curX][curY] = true;
-
-	for (int i = 0; i < 4; i++) {
-		int nx = curX + dx[i];
-		int ny = curY + dy[i];
-
-		if (ny < 0 || nx < 0 || ny >= n || nx >= n)
-			continue;
-
-		if ((normal[nx][ny] == normal[curX][curY]) && !visited[nx][ny]) {
-			dfs_normal(nx, ny);
-		}
-	}
-}
-
-void dfs_blind(int curX, int curY) {
-	if (visited[curX][curY]) return;
-
-	visited[curX][curY] = true;
-
-	for (int i = 0; i < 4; i++) {
-		int nx = curX + dx[i];
-		int ny = curY + dy[i];
-
-		if (ny < 0 || nx < 0 || ny >= n || nx >= n)
-			continue;
-
-		if ((blind[nx][ny] == blind[curX][curY]) && !visited[nx][ny]) {
-			dfs_blind(nx, ny);
-		}
-	}
+        dfs(nr, nc, arr);
+    }
 }
 
 int main() {
-	cin >> n;
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        string str;
+        cin >> str;
+        for (int j = 0; j < n; j++) {
+            if (str[j] == 'R') {
+                board[i][j] = R;
+                blind[i][j] = R;
+            }
+            if (str[j] == 'G') {
+                board[i][j] = G;
+                blind[i][j] = R;
+            }
+            if (str[j] == 'B') {
+                board[i][j] = B;
+                blind[i][j] = B;
+            }
+        }
+    }
 
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			cin >> normal[i][j];
-			if (normal[i][j] == 'G') {
-				blind[i][j] = 'R';
-			}
-			else blind[i][j] = normal[i][j];
-		}
-	}
+    int cnt = 0, blind_cnt = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (!visited[i][j]) {
+                dfs(i, j, board);
+                cnt++;
+            }
+        }
+    }
 
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			if (visited[i][j] == false) {
-				dfs_normal(i, j);
-				cnt_normal++;
-			}
-		}
-	}
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            visited[i][j] = false;
+        }
+    }
 
-	memset(visited, false, sizeof(visited));
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (!visited[i][j]) {
+                dfs(i, j, blind);
+                blind_cnt++;
+            }
+        }
+    }
 
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			if (visited[i][j] == false) {
-				dfs_blind(i, j);
-				cnt_blind++;
-			}
-		}
-	}
-
-	cout << cnt_normal << ' ' << cnt_blind << '\n';
-
-	return 0;
+    cout << cnt << ' ' << blind_cnt << '\n';
+    
+    return 0;
 }
