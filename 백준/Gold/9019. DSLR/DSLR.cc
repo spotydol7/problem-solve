@@ -1,61 +1,68 @@
-#include <iostream>
-#include <queue>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-const int MOD = 10000;
-
-void bfs(int a, int b) {
-    int visited[10000] = {};
-    queue<pair<string, int>> q;
-
-    q.push({ "", a });
-    visited[a] = 1;
-    while (!q.empty()) {
-        string command = q.front().first;
-        int n = q.front().second;
-
-        q.pop();
-        if (n == b) {
-            cout << command << '\n';
-            break;
-        }
-
-        int m;
-
-        m = (2 * n) % MOD;
-        if (!visited[m]) {
-            visited[m] = 1;
-            q.push({ command + "D", m });
-        }
-        m = (n == 0 ? 9999 : n - 1);
-        if (!visited[m]) {
-            visited[m] = 1;
-            q.push({ command + "S", m });
-        }
-        m = (n % 1000) * 10 + n / 1000;
-        if (!visited[m]) {
-            visited[m] = 1;
-            q.push({ command + "L", m });
-        }
-        m = (n % 10) * 1000 + n / 10;
-        if (!visited[m]) {
-            visited[m] = 1;
-            q.push({ command + "R", m });
-        }
-    }
-}
+bool visited[10001];
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-
     int T;
-    int A, B;
-
     cin >> T;
     while (T--) {
-        cin >> A >> B;
-        bfs(A, B);
+        int a, b;
+        cin >> a >> b;
+
+        memset(visited, false, sizeof(visited));
+
+        queue<pair<int, string>> q;
+        q.push({a, ""});
+        visited[a] = true;
+
+        while(!q.empty()) {
+            int cur = q.front().first;
+            string curStr = q.front().second;
+            if (cur == b) {
+                cout << curStr << '\n';
+                break;
+            }
+
+            q.pop();
+
+            for (int i = 0; i < 4; i++) {
+                int next, mod, quotient;
+                char c;
+                switch(i) {
+                    case 0:
+                        next = cur * 2;
+                        if (next > 9999) next = next % 10000;
+                        c = 'D';
+                        break;
+
+                    case 1:
+                        next = cur - 1;
+                        if (cur == 0) next = 9999;
+                        c = 'S';
+                        break;
+                    
+                    case 2:
+                        mod = cur % 1000;
+                        quotient = cur / 1000;
+                        next = mod * 10 + quotient;
+                        c = 'L';
+                        break;
+                    
+                    case 3:
+                        mod = cur % 10;
+                        quotient = cur / 10;
+                        next = mod * 1000 + quotient;
+                        c = 'R';
+                        break;
+                }
+
+                if (visited[next]) continue;
+                string nextStr = curStr + c;
+                q.push({next, nextStr});
+                visited[next] = true;
+            }
+        }
     }
+    return 0;
 }
