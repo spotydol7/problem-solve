@@ -1,66 +1,63 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int l = -1, r = -1, c = -1;
-char building[31][31][31];
-int visited[31][31][31];
-int dx[6] = { 1, -1, 0, 0, 0, 0 };
-int dy[6] = { 0, 0, 1, -1, 0, 0 };
-int dz[6] = { 0, 0, 0, 0, 1, -1 };
-
-void bfs(int x, int y, int z) {
-	queue<pair<pair<int, int>, int>> q;
-	q.push({ {x, y}, z });
-	visited[x][y][z] = 1;
-	while (!q.empty()) {
-		auto cur = q.front();
-		int cur_x = cur.first.first;
-		int cur_y = cur.first.second;
-		int cur_z = cur.second;
-		q.pop();
-		for (int i = 0; i < 6; i++) {
-			int nx = cur_x + dx[i];
-			int ny = cur_y + dy[i];
-			int nz = cur_z + dz[i];
-			if (nx >= l || nx < 0 || ny >= r || ny < 0 || nz >= c || nz < 0) continue;
-			if (visited[nx][ny][nz] != 0 || building[nx][ny][nz] == '#') continue;
-			q.push({ {nx, ny}, nz });
-			visited[nx][ny][nz] = visited[cur_x][cur_y][cur_z] + 1;
-		}
-	}
-}
+int dr[6] = { 1, -1, 0, 0, 0, 0 };
+int dc[6] = { 0, 0, 1, -1, 0, 0 };
+int dl[6] = { 0, 0, 0, 0, 1, -1 };
 
 int main() {
-	int x, y, z, fx, fy, fz;
+
 	while (true) {
-		memset(visited, 0, sizeof(visited));
-		cin >> l >> r >> c;
-		if (l == 0 && r == 0 && c == 0) break;
-		for (int i = 0; i < l; i++) {
-			for (int j = 0; j < r; j++) {
-				for (int k = 0; k < c; k++) {
-					cin >> building[i][j][k];
-					if (building[i][j][k] == 'S') {
-						x = i;
-						y = j;
-						z = k;
-					}
-					if (building[i][j][k] == 'E') {
-						fx = i;
-						fy = j;
-						fz = k;
+		string board[31][31];
+		int step[31][31][31];
+		bool escape = false;
+
+		memset(step, -1, sizeof(step));
+		queue<pair<pair<int, int>, int>> q;
+
+		int L, R, C;
+		cin >> L >> R >> C;
+		if (L == 0 && R == 0 && C == 0) break;
+
+		for (int i = 0; i < L; i++) {
+			for (int j = 0; j < R; j++) {
+				cin >> board[i][j];
+				for (int k = 0; k < C; k++) {
+					if (board[i][j][k] == 'S') {
+						q.push({ {i, j}, k });
+						step[i][j][k] = 0;
 					}
 				}
 			}
 		}
 
-		if (x == fx && y == fy && z == fz) {
-			cout << "Escaped in 0 minute(s)." << '\n';
-			continue;
+		while (!q.empty()) {
+			auto cur = q.front();
+			q.pop();
+			int cur_l = cur.first.first;
+			int cur_r = cur.first.second;
+			int cur_c = cur.second;
+
+			if (board[cur_l][cur_r][cur_c] == 'E') {
+				escape = true;
+				cout << "Escaped in " << step[cur_l][cur_r][cur_c] << " minute(s)." << '\n';
+				break;
+			}
+
+			for (int i = 0; i < 6; i++) {
+				int nl = cur_l + dl[i];
+				int nr = cur_r + dr[i];
+				int nc = cur_c + dc[i];
+
+				if (nl < 0 || nl >= L || nr < 0 || nr >= R || nc < 0 || nc >= C) continue;
+				if (board[nl][nr][nc] == '#' || step[nl][nr][nc] >= 0) continue;
+
+				q.push({ {nl, nr}, nc });
+				step[nl][nr][nc] = step[cur_l][cur_r][cur_c] + 1;
+			}
 		}
-		bfs(x, y, z);
-		if (visited[fx][fy][fz] == 0) cout << "Trapped!" << '\n';
-		else cout << "Escaped in " << visited[fx][fy][fz] - 1 << " minute(s).\n";
+
+		if (!escape) cout << "Trapped!" << '\n';
 	}
 
 	return 0;
