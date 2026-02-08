@@ -1,41 +1,38 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-int r, c;
-string maze[1001];
 int run[1001][1001];
 int fire[1001][1001];
-int dx[] = { 1, 0, -1, 0 };
-int dy[] = { 0, 1, 0, -1 };
-queue<pair<int, int>> run_q;
-queue<pair<int, int>> fire_q;
+int dr[4] = { 1, -1, 0, 0 };
+int dc[4] = { 0, 0, 1, -1 };
 
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-	int t;
-	cin >> t;
-	for (int i = 0; i < t; i++) {
-		int isFound = 0;
-		cin >> c >> r;
-		run_q = queue<pair<int, int>>();
-		fire_q = queue<pair<int, int>>(); // 재선언해서 초기화
+
+	int test_case;
+	cin >> test_case;
+
+	while (test_case--) {
+		queue<pair<int, int>> fire_q;
+		queue<pair<int, int>> run_q;
+		bool found = false;
 		memset(run, -1, sizeof(run));
 		memset(fire, -1, sizeof(fire));
+		string board[1001];
 
-		for (int i = 0; i < r; i++) {
-			cin >> maze[i];
-		}
+		int R, C;
+		cin >> C >> R;
+		for (int i = 0; i < R; i++) {
+			cin >> board[i];
 
-		for (int i = 0; i < r; i++) {
-			for (int j = 0; j < c; j++) {
-				if (maze[i][j] == '@') {
-					run_q.push({ j, i });
+			for (int j = 0; j < C; j++) {
+				if (board[i][j] == '@') {
 					run[i][j] = 0;
+					run_q.push({ i, j });
 				}
-				if (maze[i][j] == '*') {
-					fire_q.push({ j, i });
+				if (board[i][j] == '*') {
 					fire[i][j] = 0;
+					fire_q.push({ i, j });
 				}
 			}
 		}
@@ -43,47 +40,45 @@ int main() {
 		while (!fire_q.empty()) {
 			auto cur = fire_q.front();
 			fire_q.pop();
-			int x = cur.first;
-			int y = cur.second;
+			int cur_r = cur.first;
+			int cur_c = cur.second;
 
 			for (int i = 0; i < 4; i++) {
-				int nx = x + dx[i];
-				int ny = y + dy[i];
+				int nr = cur_r + dr[i];
+				int nc = cur_c + dc[i];
 
-				if (nx < 0 || nx >= c || ny < 0 || ny >= r) continue;
-				if (fire[ny][nx] >= 0 || maze[ny][nx] == '#') continue;
-
-				fire_q.push({ nx, ny });
-				fire[ny][nx] = fire[y][x] + 1;
+				if (nr < 0 || nr >= R || nc < 0 || nc >= C) continue;
+				if (board[nr][nc] == '#' || fire[nr][nc] >= 0) continue;
+				fire[nr][nc] = fire[cur_r][cur_c] + 1;
+				fire_q.push({ nr, nc });
 			}
 		}
 
-		while (!run_q.empty()) {
+		while (!run_q.empty() && !found) {
 			auto cur = run_q.front();
 			run_q.pop();
-			int x = cur.first;
-			int y = cur.second;
+			int cur_r = cur.first;
+			int cur_c = cur.second;
 
 			for (int i = 0; i < 4; i++) {
-				int nx = x + dx[i];
-				int ny = y + dy[i];
+				int nr = cur_r + dr[i];
+				int nc = cur_c + dc[i];
 
-				if (nx < 0 || nx >= c || ny < 0 || ny >= r) { // maze 가장자리 도착 == 탈출
-					isFound = 1;
+				if (nr < 0 || nr >= R || nc < 0 || nc >= C) {
+					found = true;
+					cout << run[cur_r][cur_c] + 1 << '\n';
 					break;
 				}
-				if (run[ny][nx] >= 0 || maze[ny][nx] == '#') continue;
-				if (fire[ny][nx] != -1 && fire[ny][nx] <= run[y][x] + 1) continue;
 
-				run[ny][nx] = run[y][x] + 1;
-				run_q.push({ nx, ny });
-			}
-			if (isFound) {
-				cout << run[y][x] + 1 << '\n';
-				break;
+				if (board[nr][nc] == '#' || run[nr][nc] >= 0) continue;
+				if (fire[nr][nc] >= 0 && fire[nr][nc] <= run[cur_r][cur_c] + 1) continue;
+				run[nr][nc] = run[cur_r][cur_c] + 1;
+				run_q.push({ nr, nc });
 			}
 		}
-		if (!isFound) cout << "IMPOSSIBLE" << '\n';
+
+		if (!found) cout << "IMPOSSIBLE" << '\n';
 	}
+
 	return 0;
 }
