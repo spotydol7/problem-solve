@@ -27,7 +27,6 @@ int main() {
         }
     }
 
-
     cout << d[k];
 
     return 0;
