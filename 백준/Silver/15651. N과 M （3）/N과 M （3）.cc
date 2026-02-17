@@ -1,28 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, m;
-int arr[8];
+int N, M;
+int arr[10];
 
-void backtracking(int depth) {
-	if (depth == m) {
-		for (int i = 0; i < m; i++) {
+void dfs(int depth) {
+	if (depth == M) {
+		for (int i = 0; i < M; i++) {
 			cout << arr[i] << ' ';
 		}
 		cout << '\n';
 		return;
 	}
-	
-	for (int i = 1; i <= n; i++) {
+	for (int i = 1; i <= N; i++) {
 		arr[depth] = i;
-		backtracking(depth + 1);
+		dfs(depth + 1);
 	}
 }
 
 int main() {
-	cin >> n >> m;
-	
-	backtracking(0);
+	cin >> N >> M;
+
+	dfs(0);
 
 	return 0;
 }
