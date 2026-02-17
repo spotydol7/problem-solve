@@ -5,8 +5,8 @@ int n, m;
 int arr[10];
 int visited[10];
 
-void answer(int num) {
-	if (num == m) {
+void backtracking(int depth) {
+	if (depth == m) {
 		for (int i = 0; i < m; i++) {
 			cout << arr[i] << ' ';
 		}
@@ -16,9 +16,9 @@ void answer(int num) {
 
 	for (int i = 1; i <= n; i++) {
 		if (!visited[i]) {
-			arr[num] = i;
+			arr[depth] = i;
 			visited[i] = 1;
-			answer(num + 1);
+			backtracking(depth + 1);
 			visited[i] = 0;
 		}
 	}
@@ -29,7 +29,7 @@ int main() {
 	cin.tie(0);
 
 	cin >> n >> m;
-	answer(0);
+	backtracking(0);
 
 	return 0;
 }
