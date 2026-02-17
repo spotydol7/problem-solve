@@ -1,39 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, m;
+int N, M;
 vector<int> nums;
-int arr[9];
+int arr[10];
+bool visited[10];
 
-void backtracking(int start, int depth) {
-	if (depth == m) {
-		for (int i = 0; i < m; i++) {
+void dfs(int depth, int idx) {
+	if (depth == M) {
+		for (int i = 0; i < M; i++) {
 			cout << arr[i] << ' ';
 		}
 		cout << '\n';
 		return;
 	}
-	int flag = 0;
-	for (int i = start; i < n; i++) {
-		if (flag != nums[i]) {
+
+	int last = INT_MAX;
+
+	for (int i = idx; i < N; i++) {
+		if (last != nums[i]) {
 			arr[depth] = nums[i];
-			flag = nums[i];
-			backtracking(i, depth + 1);
+			last = nums[i];
+			dfs(depth + 1, i);
 		}
 	}
 }
 
 int main() {
-	cin >> n >> m;
-	for (int i = 0; i < n; i++) {
+	cin >> N >> M;
+	for (int i = 0; i < N; i++) {
 		int temp;
 		cin >> temp;
 		nums.push_back(temp);
 	}
-
 	sort(nums.begin(), nums.end());
 
-	backtracking(0, 0);
-
+	dfs(0, 0);
+	
 	return 0;
 }
