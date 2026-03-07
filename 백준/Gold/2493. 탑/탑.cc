@@ -1,21 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int N;
+
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    int n;
-    stack<pair<int, int>> s;
-    cin >> n;
-    s.push(make_pair(100000001, 0)); // height, index
-    for (int i = 1; i <= n; i++) {
-        int height;
-        cin >> height;
-        while (s.top().first < height) {
-            s.pop();
-        }
-        cout << s.top().second << ' ';
-        s.push(make_pair(height, i));
-    }
-    return 0;
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+
+	cin >> N;
+	
+	stack<pair<int, int>> towers;
+	towers.push({ 100000001, 0 });
+
+	for (int i = 0; i < N; i++) {
+		int temp;
+		cin >> temp;
+
+		while (towers.top().first < temp) {
+			towers.pop();
+		}
+		cout << towers.top().second << ' ';
+
+		towers.push({ temp, i + 1 });
+	}
+	
+	return 0;
 }
